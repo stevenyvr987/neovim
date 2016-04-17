@@ -3,7 +3,7 @@
 local helpers = require('test.functional.helpers')
 local feed, insert, source = helpers.feed, helpers.insert, helpers.source
 local clear, execute, expect = helpers.clear, helpers.execute, helpers.expect
-local eq, eval, write_file = helpers.eq, helpers.eval, helpers.write_file
+local ok, eq, eval, write_file = helpers.ok, helpers.eq, helpers.eval, helpers.write_file
 
 local function has_clipboard()
   clear()
