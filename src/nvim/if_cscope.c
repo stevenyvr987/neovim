@@ -2051,7 +2051,7 @@ static char *cs_resolve_file(size_t i, char *name)
       ) {
     fullname = xmalloc(len);
     (void)sprintf(fullname, "%s/%s", csinfo[i].ppath, name);
-  } else if (csdir != NULL && csinfo[i].fname != NULL && *csdir != NUL) {
+  } else if (csdir != NULL && csinfo[i].fname != NULL && *csdir != NUL && (name[0] != '/')) {
     /* Check for csdir to be non empty to avoid empty path concatenated to
      * cscope output. */
     fullname = concat_fnames((char *)csdir, name, TRUE);
