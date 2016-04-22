@@ -27,14 +27,18 @@ ifeq (,$(BUILD_TOOL))
   endif
 endif
 
-ifneq ($(VERBOSE),)
-  # Only need to handle Ninja here.  Make will inherit the VERBOSE variable.
-  ifeq ($(BUILD_TYPE),Ninja)
-    VERBOSE_FLAG := -v
+ifeq ($(BUILD_TYPE),Ninja)
+  BUILD_FLAGS :=
+  ifneq ($(VERBOSE),)
+    # Only need to handle Ninja here.  Make will inherit the VERBOSE variable.
+    BUILD_FLAGS += -v
+  endif
+  ifneq (,$(findstring n,$(MAKEFLAGS)))
+    BUILD_FLAGS += -n
   endif
 endif
 
-BUILD_CMD = $(BUILD_TOOL) $(VERBOSE_FLAG)
+BUILD_CMD = $(BUILD_TOOL) $(BUILD_FLAGS)
 
 # Extra CMake flags which extend the default set
 CMAKE_EXTRA_FLAGS ?=
