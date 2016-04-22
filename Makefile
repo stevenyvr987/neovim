@@ -105,7 +105,7 @@ benchmark: | nvim
 
 test: functionaltest unittest
 
-clean:
+clean: tagsclean cscopeclean
 	+test -d build && $(BUILD_CMD) -C build clean || true
 	$(MAKE) -C src/nvim/testdir clean
 
@@ -121,4 +121,14 @@ lint:
 		-DLINT_SUPPRESS_URL="$(DOC_DOWNLOAD_URL_BASE)$(CLINT_ERRORS_FILE_PATH)" \
 		-P cmake/RunLint.cmake
 
-.PHONY: test testlint functionaltest unittest lint clean distclean nvim libnvim cmake deps install
+tags:
+	$(BUILD_CMD) -C build tags
+tagsclean:
+	$(BUILD_CMD) -C build tagsclean
+
+cscope:
+	$(BUILD_CMD) -C build cscope
+cscopeclean:
+	$(BUILD_CMD) -C build cscopeclean
+
+.PHONY: test testlint functionaltest unittest lint clean distclean nvim libnvim cmake deps install tags tagsclean cscope cscopeclean
